@@ -1,5 +1,9 @@
 "use strict";
 
+/*
+
+*/
+
 const rl = require('readline').createInterface({
   input: require('fs').createReadStream('input.txt')
 });
@@ -19,7 +23,7 @@ rl.on('line', function (instruction) {
 });
 
 rl.on('close', function(){
-  console.log(_totalBrightness());  
+  console.log(state.reduce((total, row) => total + row.reduce((p, c)=> p + c, 0), 0));  
 });
 
 function _processInstruction(instruction){
@@ -35,16 +39,4 @@ function _processInstruction(instruction){
       if(action === 'toggle') state[x][y] = state[x][y] + 2;
     }
   }
-}
-
-
-function _totalBrightness(){
-  let total = 0;
-  for(let i=0; i<state.length; i++){
-    for(let j=0; j<state[i].length; j++){
-      total += state[i][j];
-    }
-  }
-
-  return total;
 }

@@ -19,7 +19,8 @@ rl.on('line', function (instruction) {
 });
 
 rl.on('close', function(){
-  console.log(_countLightsOn());  
+  //tally the true values for each row and aggregate
+  console.log(state.reduce((acc, row) => acc + row.reduce((p, c) => c ? p+1 : p, 0), 0));  
 });
 
 function _processInstruction(instruction){
@@ -34,14 +35,4 @@ function _processInstruction(instruction){
       else if(action === 'toggle') state[x][y] = !(state[x][y]);  
     }
   }
-}
-
-function _countLightsOn(){
-  let cnt = 0;
-  for(let i=0; i<state.length; i++){
-    for(let j=0; j<state[i].length; j++){
-      if(state[i][j]) cnt++;
-    }
-  }
-  return cnt;
 }
